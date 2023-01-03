@@ -1,5 +1,23 @@
 import './App.css';
 import Customer from './components/Customer';
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
+import { TableBody, TableHead } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => (
+  {
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto'
+  },
+  table: {
+    minWidth: 1080
+  }
+})
 
 const test = [
   {
@@ -22,23 +40,36 @@ const test = [
   }
 ]
 function App() {
+  //const { classes } = this.props;
   return (
-    <div>
-      {
-        test.map(i => {
-          return (
-            <Customer 
-              key={i.id}
-              id = {i.id}
-              name = {i.name}
-              image = {i.image}
-              job = {i.job}
-            />
-          )
-        })
-      }
-    </div>
+    <Paper className={styles.root}>
+      <Table className={styles.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>번호</TableCell>
+              <TableCell>이미지</TableCell>
+              <TableCell>이름</TableCell>
+              <TableCell>직업</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+              {
+                test.map(i => {
+                  return (
+                    <Customer 
+                      key={i.id}
+                      id = {i.id}
+                      name = {i.name}
+                      image = {i.image}
+                      job = {i.job}
+                    />
+                  )
+                })
+              }
+        </TableBody>
+      </Table>
+    </Paper>
   );
 }
 
-export default App;
+export default withStyles(styles)(App);
