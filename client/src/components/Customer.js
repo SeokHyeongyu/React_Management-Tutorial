@@ -7,8 +7,10 @@ class Customer extends React.Component {
         return (
             <TableRow>
                 <TableCell>{this.props.id}</TableCell>
-                <TableCell><img src={this.props.image}></img></TableCell>
                 <TableCell>{this.props.name}</TableCell>
+                <TableCell><img src={this.props.img}></img></TableCell>
+                <TableCell>{this.props.birthday}</TableCell>
+                <TableCell>{this.props.gender}</TableCell>
                 <TableCell>{this.props.job}</TableCell>
             </TableRow>
         )

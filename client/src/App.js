@@ -56,8 +56,10 @@ class App extends Component {
           <TableHead>
             <TableRow>
               <TableCell>번호</TableCell>
-              <TableCell>이미지</TableCell>
               <TableCell>이름</TableCell>
+              <TableCell>이미지</TableCell>
+              <TableCell>생일</TableCell>
+              <TableCell>성별</TableCell>
               <TableCell>직업</TableCell>
             </TableRow>
           </TableHead>
@@ -66,11 +68,13 @@ class App extends Component {
                 this.state.customers ? this.state.customers.map(i => {
                   return (
                     <Customer 
-                      key={i.id}
-                      id = {i.id}
-                      name = {i.name}
-                      image = {i.image}
-                      job = {i.job}
+                      key={i.ID}
+                      id = {i.ID}
+                      name = {i.NAME}
+                      img = {i.IMG}
+                      birthday = {i.BIRTHDAY}
+                      gender = {i.GENDER}
+                      job = {i.JOB}
                     />
                   )
                 }) : 
