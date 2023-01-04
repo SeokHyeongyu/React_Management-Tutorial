@@ -6,6 +6,7 @@ import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import { TableBody, TableHead } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { Component } from 'react';
 
 const styles = theme => (
   {
@@ -19,31 +20,28 @@ const styles = theme => (
   }
 })
 
-const test = [
-  {
-    'id' : 1,
-    'image' : 'https://placeimg.com/64/64/any',
-    'name' : 'test',
-    'job' : '학생'
-  },
-  {
-    'id' : 2,
-    'image' : 'https://placeimg.com/64/64/any',
-    'name' : 'aaa',
-    'job' : 'TTTTTTTT'
-  },
-  {
-    'id' : 3,
-    'image' : 'https://placeimg.com/64/64/any',
-    'name' : 'seok',
-    'job' : '학생2'
+
+class App extends Component {
+  state = {
+    customers: ""
   }
-]
-function App() {
-  //const { classes } = this.props;
-  return (
-    <Paper className={styles.root}>
-      <Table className={styles.table}>
+  componentDidMount() {
+    this.callApi()
+    .then(res => this.setState({customers: res}))
+    .catch(err => console.log(err));
+  }
+  
+  callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
+  render () {
+    const { classes } = this.props
+    return (
+    <Paper className={classes.root}>
+      <Table className={classes.table}>
           <TableHead>
             <TableRow>
               <TableCell>번호</TableCell>
@@ -54,7 +52,7 @@ function App() {
           </TableHead>
           <TableBody>
               {
-                test.map(i => {
+                this.state.customers ? this.state.customers.map(i => {
                   return (
                     <Customer 
                       key={i.id}
@@ -64,12 +62,13 @@ function App() {
                       job = {i.job}
                     />
                   )
-                })
+                }) : ""
               }
         </TableBody>
       </Table>
     </Paper>
-  );
+    )
+  }
 }
 
 export default withStyles(styles)(App);
