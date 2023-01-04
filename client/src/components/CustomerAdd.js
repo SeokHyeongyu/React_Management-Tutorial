@@ -1,5 +1,5 @@
 import React from "react";
-import post from "axios";
+import axios from "axios";
 //import { response } from "express";
 
 class CustomerAdd extends React.Component {
@@ -21,6 +21,15 @@ class CustomerAdd extends React.Component {
         .then((response) => {
             console.log(response);
         })
+        this.setstate = ({
+            file: null,
+            name: '',
+            birthday: '',
+            gender: '',
+            job: '',
+            fileName: '',
+        })
+        window.location.reload();
     }
 
     handelFileChang = (e) => {
@@ -37,24 +46,24 @@ class CustomerAdd extends React.Component {
     }
     
     addCustomer = () => {
-        const url = '/api/customers'
+        const url = '/api/addCustomer'
         const formData = new FormData();
-        formData.append('img', this.state.file);
+        formData.append('image', this.state.file);
         formData.append('name', this.state.name);
         formData.append('birthday', this.state.birthday);
         formData.append('gender', this.state.gender);
         formData.append('job', this.state.job);
         const config = {
             headers: {
-                'content-type': 'multipart/form-data' //파일데이터 보낼때 헤더 설정
+                'Content-type': 'multipart/form-data' //파일데이터 보낼때 헤더 설정
             }
         };
-        return post(url, formData, config);
+        return axios.post(url, formData, config);
     }
     render() {
 
         return(
-            <form onSubmi={this.handleFormSubmit} >
+            <form onSubmit={this.handleFormSubmit} >
                 <h1>고객 추가</h1>
                 프로필 이미지: <input type="file" name ="file" file={this.state.file} value={this.state.fileName} onChange={this.handelFileChang}/><br/>
                 이름: <input type="text" name ="name" value={this.state.name} onChange={this.handelValueChang}/><br/>
